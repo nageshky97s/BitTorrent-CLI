@@ -23,7 +23,7 @@
 
 #include "trackerurlcreation.cpp"
 #include "global.hpp"
-#include "tcpconnection.cpp"
+#include "tcpConnection.cpp"
 #include "nonblocktcp.cpp"
 #include "messagesCreate.cpp"
 #include "helper.cpp"
@@ -39,7 +39,8 @@ void download_torrent()
 // Open torrent file which contains info about the torrent to parse
    
     
-    std::ifstream t("debian.torrent");    
+    std::ifstream t("debian.torrent");   
+    
     
     
     std::stringstream buffer;
@@ -100,7 +101,7 @@ void download_torrent()
     //  if(sockpeer<0) std::cout<<"Error while accepting connection\n";
     // else uploadToPeer(url_info,bitdata,files,trk_info,p,sockpeer);
    
-    bool test2= url_info.downloaded!=trk_info.no_of_pieces;
+    
     
     while(true)
     {

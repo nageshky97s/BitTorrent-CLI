@@ -130,3 +130,16 @@ std::string number_to_2byte(int n)
     std::string ret( byte,2);
     return ret;
 }
+
+std::string number_to_8byte( uint64_t num)
+{
+    char bytes[8];
+    int j=0;
+    for(int i=7;i>=0;i--,j++)
+    {
+        bytes[i] = (num >> (j*8)) &  0xFF;
+    }
+   
+    std::string ret( bytes,8);
+    return ret;
+}

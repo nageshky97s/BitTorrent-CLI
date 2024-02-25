@@ -4,7 +4,7 @@
 #include "bencode.hpp"
 #include "global.hpp"
 #include "trackerurlcreation.cpp"
-#include "tcpconnection.cpp"
+#include "tcpConnection.cpp"
 
 void handleTracker(std::string& peerid_string,url_params& url_info,tracker_info& trk_info,std::unordered_map<std::string,int>& peer_ip_port)
 {
