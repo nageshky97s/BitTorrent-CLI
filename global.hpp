@@ -6,7 +6,7 @@
 #include <deque>
 #include <mutex>
 #define BLOCKSIZE 16384
-#define QUEUESIZE 16
+#define QUEUESIZE 8
 #define SINGLE 1
 #define MULTIPLE 2
 
@@ -49,6 +49,7 @@ struct bitfield
    int spare_bits;
 };
 
+static const int SIZE_HANDSHAKE = 1+19+8+20+20;
 static int no_of_blocks;
 static std::string peerid_string(20,'*');
 static int mode;

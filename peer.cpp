@@ -105,6 +105,11 @@ int downloadFromPeer(tracker_info& trk,url_params& url,bitfield& bit_data,int po
     createHandshakeMessage(handshake,std::string(reinterpret_cast<char*>(url.info_hash),20),peerid_string);
 
     peerdata.peer_sock_id=tcpconnectNB(port,hostname);
+    if(peerdata.peer_sock_id==FAILURE || peerdata.peer_sock_id ==-1 )
+    {
+        std::cout<<"Failed to connect to peer\n";
+        return FAILURE;
+    }
     std::cout<<"Peer_sock: "<<peerdata.peer_sock_id<<std::endl;
     setsockopt(peerdata.peer_sock_id, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
      if(peerdata.peer_sock_id!=FAILURE)
@@ -128,7 +133,7 @@ int downloadFromPeer(tracker_info& trk,url_params& url,bitfield& bit_data,int po
             std::cout<<"Failed to connect to the peer\n"; 
             std::cout<<"Closing Connection beacuse peer not responding\n";
            // pstruct.peer_ip_port_map.erase(hostname);
-            close(peerdata.peer_sock_id);
+            close(peerdata.peer_sock_id); 
             return FAILURE;
         }  
     }
@@ -136,7 +141,7 @@ int downloadFromPeer(tracker_info& trk,url_params& url,bitfield& bit_data,int po
         std::cout<<"Failed to connect to the peer\n"; 
         std::cout<<"Closing Connection beacuse peer not responding\n";
        // pstruct.peer_ip_port_map.erase(hostname);
-        close(peerdata.peer_sock_id);
+        close(peerdata.peer_sock_id); 
         return FAILURE;
     }
     
@@ -214,7 +219,7 @@ int downloadFromPeer(tracker_info& trk,url_params& url,bitfield& bit_data,int po
     else{
         std::cout<<" Failed to send INTERESTED MESSAGE\n";
         std::cout<<"Closing Connection Problem with Connection, failed to send interested message\n ";
-        close(peerdata.peer_sock_id);
+        close(peerdata.peer_sock_id); 
        // pstruct.peer_ip_port_map.erase(hostname); //MAYBE can try again in the next iteration of connections
         
         return FAILURE;
@@ -233,11 +238,11 @@ int downloadFromPeer(tracker_info& trk,url_params& url,bitfield& bit_data,int po
             case FAILURE:
             {
                 std::cout<<"Continuing with communication\n";
-               // std::cout<<"Bitfield failure Kaboom\n";
-               // std::cout<<"Closing Connection Problem with BITFIELD\n ";
-               // close(peerdata.peer_sock_id);
+               std::cout<<"Bitfield failure Kaboom\n";
+               std::cout<<"Closing Connection Problem with BITFIELD\n ";
+               close(peerdata.peer_sock_id);
                 // pstruct.peer_ip_port_map.erase(hostname);
-                //return FAILURE;
+                return FAILURE;
             }
             
         }
@@ -351,7 +356,7 @@ int downloadFromPeer(tracker_info& trk,url_params& url,bitfield& bit_data,int po
                 threadlock.unlock();
                 //pstruct.peer_ip_port_map.erase(hostname); //MAYBE can try again in the next iteration of connections
         
-        return FAILURE;
+                return FAILURE;
 
            }
             if(status == FAILURE || isLastPiece ==1)

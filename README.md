@@ -1,2 +1,2 @@
 # BitTorrent-CLI
-Command Line Version of BitTorrent. Work in Progress
+BitTorrent Application based on the Version 1 Specification.

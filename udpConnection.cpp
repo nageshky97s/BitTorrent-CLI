@@ -9,20 +9,7 @@
 #include <netinet/in.h> 
 #include <netdb.h>
 
-void* getSinAddr(addrinfo *addr)
-{
-    switch (addr->ai_family)
-    {
-        case AF_INET:
-            return &(reinterpret_cast<sockaddr_in*>(addr->ai_addr)->sin_addr);
-
-        case AF_INET6:
-            return &(reinterpret_cast<sockaddr_in6*>(addr->ai_addr)->sin6_addr);
-    }
-
-    return NULL;
-}
-
+#include "tcpConnection.cpp"
 
 
 int udpConnect(std::string hostname, int port, int resolution,struct sockaddr_in& servaddr)

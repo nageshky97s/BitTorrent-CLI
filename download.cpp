@@ -39,9 +39,9 @@ void download_torrent()
 // Open torrent file which contains info about the torrent to parse
    
     
-    std::ifstream t("debian.torrent");   
-    
-    
+    std::ifstream t("debian.torrent"); 
+ 
+       
     
     std::stringstream buffer;
     buffer << t.rdbuf();   
@@ -65,6 +65,7 @@ void download_torrent()
     std::cout<<"No of spare bits = "<<bitdata.spare_bits<<std::endl;
     std::cout<<"Piece Length= "<<trk_info.pieceLength<<std::endl<<"Length: "<<trk_info.length<<std::endl;
     std::cout<<"No of pieces = "<<trk_info.no_of_pieces<<"  "<<ceil((double)trk_info.length/trk_info.pieceLength)/8<<std::endl;
+    std::cout<<"No of Blocks = "<<no_of_blocks<<std::endl;
     
 
     for(int i=0;i<trk_info.no_of_pieces;i++)p.pieces_to_download.push_back(i);
@@ -101,7 +102,13 @@ void download_torrent()
     //  if(sockpeer<0) std::cout<<"Error while accepting connection\n";
     // else uploadToPeer(url_info,bitdata,files,trk_info,p,sockpeer);
    
+    //  handleTracker(peerid_string, url_info, trk_info, p.peer_ip_port_map);
+    //       for(auto itr=p.peer_ip_port_map.begin();itr!=p.peer_ip_port_map.end();itr++)
+    // {
+    //     downloadFromPeer(trk_info,url_info,bitdata,itr->second,itr->first,files,p);
     
+    // }
+
     
     while(true)
     {
@@ -128,32 +135,17 @@ void download_torrent()
     th.join();
     }
     
-    
-
    
-
-    
-   
-    
-    // std::cout<<"DOWNLOAD FINISHED KABOOM KA-SHA\n";
-
-
-    //  for(auto itr=p.peer_ip_port_map.begin();itr!=p.peer_ip_port_map.end();itr++)
-    // {
-    //     downloadFromPeer(trk_info,url_info,bitdata,itr->second,itr->first,files,p);
-    
-    // }
     for(auto a:files)
     {
         a->close();
         free(a);
     }
-        
-    std::cout<<"SUCCESS!!!\n"<<"Total Downloaded: "<<url_info.downloaded<<std::endl<<trk_info.no_of_pieces;
+    
+    std::cout<<"DOWNLOAD FINISHED KABOOM KA-SHA SUCCESS!!!\n"<<"Total Downloaded: "<<url_info.downloaded<<std::endl<<trk_info.no_of_pieces;
 
 
 }
-
 
 
 

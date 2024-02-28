@@ -38,6 +38,7 @@ int tcpConnect(int port, std::string hostname, int resolve) {
     if(sockfd==-1)
     {
         std::cout<<"Failed to create socket \n";
+        return -1;
     }
     if(resolve)
     {
